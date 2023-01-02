@@ -64,12 +64,12 @@ class _FeaturedScreenState extends State<FeaturedScreen> {
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(
-                Icons.menu,
+                Icons.arrow_back_ios,
                 color: Color.fromARGB(255, 0, 0, 0),
                 size: 28, // Changing Drawer Icon Size
               ),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Navigator.pop(context);
               },
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             );

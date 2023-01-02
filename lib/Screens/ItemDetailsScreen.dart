@@ -43,6 +43,41 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  size: 28, // Changing Drawer Icon Size
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
+          elevation: 0,
+          backgroundColor: Color.fromARGB(255, 221, 221, 221),
+          actions: [
+            IconButton(
+              color: Colors.black,
+              icon: const Icon(Icons.notifications_outlined),
+              onPressed: () {
+                // handle the press
+              },
+            ),
+            IconButton(
+              color: Colors.black,
+              icon: const Icon(Icons.push_pin_outlined),
+              onPressed: () {
+                // handle the press
+              },
+            ),
+          ],
+        ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
