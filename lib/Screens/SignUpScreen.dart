@@ -1,22 +1,21 @@
 import 'package:ecommerce/Screens/HomeScreen.dart';
-import 'package:ecommerce/Screens/SignUpScreen.dart';
+import 'package:ecommerce/Screens/LoginScreen.dart';
 import 'package:ecommerce/Widgets/Button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class LoginScreen extends StatefulWidget {
-    static String id = 'login';
-
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _emailController, _pwController;
+class _SignUpScreenState extends State<SignUpScreen> {
+  late TextEditingController _nameController, _emailController, _pwController;
 
   // Initially password is obscure
   bool _obscureText = true;
@@ -29,8 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
+    _nameController = TextEditingController();
     _emailController = TextEditingController();
     _pwController = TextEditingController();
+
     super.initState();
   }
 
@@ -44,11 +45,28 @@ class _LoginScreenState extends State<LoginScreen> {
             const Padding(
               padding: EdgeInsets.all(18.0),
               child: Text(
-                'Login',
+                'Sign Up',
                 style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 80.0),
+            const SizedBox(height: 50.0),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Material(
+                borderRadius: BorderRadius.circular(10.0),
+                child: TextField(
+                  controller: _nameController,
+                  obscureText: false,
+                  keyboardType: TextInputType.name, //show email keyboard
+                  textInputAction: TextInputAction.next,
+
+                  decoration: InputDecoration(
+                    labelText: "Name",
+                    hintText: 'Enter your Name',
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Material(
@@ -94,29 +112,31 @@ class _LoginScreenState extends State<LoginScreen> {
               child: RoundedButtonWidget(
                   onpressed: () {
                     FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
+                        .createUserWithEmailAndPassword(
                             email: _emailController.text,
                             password: _pwController.text)
-                        .then((value) => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => HomeScreen()))));
+                        .then((value) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => HomeScreen())));
+                    });
                   },
                   width: 400,
-                  buttonText: 'Log in'),
+                  buttonText: 'Sign Up'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Don\'t have an account ?'),
+                Text('Already have an account ?'),
                 TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => SignUpScreen())));
+                              builder: ((context) => LoginScreen())));
                     },
-                    child: Text('Sign Up'))
+                    child: Text('Sign In'))
               ],
             ),
             const SizedBox(height: 40.0),
