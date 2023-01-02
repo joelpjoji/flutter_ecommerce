@@ -43,17 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Header'),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              leading: Icon(Icons.logout_outlined),
+              title: const Text('Logout'),
               onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
+                FirebaseAuth.instance.signOut().then((value) => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: ((context) => LoginScreen()))));
               },
             ),
           ],
@@ -371,7 +366,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documentSnapshot =
                                 snapshot.data!.docs[index];
-                            if (index != 0) {
+                            if (index != 0 && index != 1 && index != 2) {
                               return Row(children: [
                                 GestureDetector(
                                   onTap: () {
@@ -432,12 +427,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// onPressed: () {
-//               FirebaseAuth.instance.signOut().then((value) => Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: ((context) => LoginScreen()))));
-//             },
 
 class SearchBar extends StatelessWidget {
   const SearchBar({super.key});
