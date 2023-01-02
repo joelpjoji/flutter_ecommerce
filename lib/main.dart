@@ -1,7 +1,8 @@
 import 'dart:async';
 
+import 'package:ecommerce/Screens/FeaturedScreen.dart';
 import 'package:ecommerce/Screens/HomeScreen.dart';
-import 'package:ecommerce/Screens/LoginScreen.dart';
+import 'package:ecommerce/Screens/Login/LoginScreen.dart';
 import 'package:ecommerce/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,12 +37,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: FirebaseAuth.instance.currentUser == null
-          ? LoginScreen.id
-          : HomeScreen.id,
+          ? 'loginscreen'
+          : 'HomeScreen',
       routes: {
-        LoginScreen.id: (context) => LoginScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
+        'loginscreen': (context) => LoginScreen(),
+        'HomeScreen': (context) => HomeScreen(),
+        'FeaturedScreen': (context) => FeaturedScreen(),
       },
       home: HomeScreen(),
     );
