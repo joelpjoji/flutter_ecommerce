@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 *.json
+*.json
 # IntelliJ related
 *.iml
 *.ipr
